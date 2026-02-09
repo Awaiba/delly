@@ -68,10 +68,39 @@ function date_validate() {
 </script>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { background-color:#111; color:#fff; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem; }
-form { width:100%; max-width:800px; }
-.content-table { width:100%; border-collapse:collapse; border-radius:10px; overflow:hidden; box-shadow:0 0 15px rgba(255,255,255,0.1); background-color:#222; }
+* { 
+    margin:0; 
+    padding:0; 
+    box-sizing:border-box; 
+    font-family:'Poppins', sans-serif; 
+}
+
+body 
+{ 
+    margin-top: 0px;
+background-color:#111; 
+color:#fff; 
+min-height:100vh; 
+display:flex; 
+flex-direction:column; 
+justify-content:center; 
+align-items:center; 
+padding:2rem; 
+}
+
+form 
+{ width:100%; 
+max-width:800px; 
+}
+
+.content-table 
+{ width:100%; 
+border-collapse:collapse; 
+border-radius:10px; 
+overflow:hidden; 
+box-shadow:0 0 15px rgba(255,255,255,0.1); 
+background-color:#222; 
+}
 .content-table th, .content-table td { padding:12px 15px; text-align:left; }
 .content-table th { background-color:#000; font-weight:600; text-align:center; }
 .content-table td input, .content-table td input[type="file"] { width:100%; padding:10px; border-radius:5px; border:1px solid #555; background-color:#333; color:#fff; }

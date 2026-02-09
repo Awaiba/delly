@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 include 'view/navbar.php';
-include 'model/dbmodel.php';
+include 'model/dbmodel.php'; // Make sure this file defines view_order()
 
 // Make sure user is logged in
 if (!isset($_SESSION['user']['login'])) {
@@ -12,6 +12,8 @@ if (!isset($_SESSION['user']['login'])) {
 }
 
 $userid = $_SESSION['user']['userid'];
-$request = view_order($userid);  // Now this will work
+
+// Fetch only orders for the logged-in user
+$request = view_order($userid);  
+
 include 'view/track.php';
-?>

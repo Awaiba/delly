@@ -176,54 +176,106 @@ body {
     }
 }
 
-/* ==== HERO SECTION ==== */
-body > h1 {
-    height: calc(100vh - 80px); /* full viewport below navbar */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    margin: 0;
-
-    /* Background image */
-    background-image: url('resource/imgadmin/1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Dark overlay for readability */
-body > h1::before {
-    content: "";
-    position: absolute;
+/* ==== BACKGROUND VIDEO ==== */
+video {
+    position: fixed;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 0;
+    object-fit: cover;
+    z-index: -2;
 }
 
-body > h1 span {
+/* ==== DARK OVERLAY ==== */
+body::before {
+    content:"";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: -1;
+}
+
+/* ==== HERO SECTION ==== */
+.hero {
     position: relative;
+    height: calc(100vh - 72px); /* full viewport minus navbar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center;     /* horizontal centering */
+    text-align: center;
     z-index: 1;
 }
 
-/* Responsive */
-@media(max-width: 768px) {
-    body > h1 { font-size: 2.2rem; }
+.hero h1 {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    color: #fff;
 }
-@media(max-width: 480px) {
-    body > h1 { font-size: 1.8rem; }
+
+.hero p {
+    font-size: 2rem;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.clock-container {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+/* ==== RESPONSIVE ==== */
+@media(max-width:768px){
+    .hero h1{ font-size:2.2rem; }
+    .hero p{ font-size:1.6rem; }
+}
+@media(max-width:480px){
+    .hero h1{ font-size:1.8rem; }
+    .hero p{ font-size:1.2rem; }
+    .clock-container{ font-size:2rem; }
 }
 </style>
 </head>
 <body>
 
-<h1><span>Welcome to Dashboard</span></h1>
+<!-- BACKGROUND VIDEO -->
+<video src="resources/imgadmin/12.mp4" muted loop autoplay playsinline></video>
+
+<!-- HERO WITH CLOCK -->
+<div class="hero">
+    <h1>Namaste Admin, Welcome to Delly</h1>
+    <h3 style="font-style: italic; font-weight: 600;">Have a great day at work!</h3>
+    <div class="clock-container">
+        <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span> <span id="session">AM</span>
+    </div>
+</div>
+
+<!-- CLOCK SCRIPT -->
+<script>
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    let session = "AM";
+
+    if(hours >= 12){ session="PM"; if(hours>12) hours-=12; }
+    if(hours===0) hours=12;
+
+    hours = hours<10?"0"+hours:hours;
+    minutes = minutes<10?"0"+minutes:minutes;
+    seconds = seconds<10?"0"+seconds:seconds;
+
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+    document.getElementById("session").textContent = session;
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
 
 </body>
 </html>

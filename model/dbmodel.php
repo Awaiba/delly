@@ -27,20 +27,29 @@ if (!function_exists('send_courier')) {
     }
 }
 
-// VIEW ORDER
-if (!function_exists('view_order')) {
-    function view_order($userid) {
-        $conn = db_connect();
-        $stmt = $conn->prepare("SELECT * FROM courier WHERE uid=? ORDER BY date DESC");
-        if (!$stmt) { error_log("Prepare failed: ".$conn->error); $conn->close(); return false; }
-        $stmt->bind_param("i", $userid);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-        $conn->close();
-        return $result;
+function view_order($userid) {
+    $conn = db_connect(); // make sure your connection function is used
+    $userid = intval($userid);
+
+    $sql = "SELECT * FROM courier WHERE uid = ? ORDER BY oid DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $orders = [];
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
     }
+
+    return $orders;
 }
+
+
+
+
 
 function user_login($username, $password) {
 

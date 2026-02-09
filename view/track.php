@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-include 'model/dbmodel.php';
+require_once 'model/dbmodel.php';
 
 // Make sure user is logged in
 if (!isset($_SESSION['user']['login'])) {
@@ -11,7 +11,9 @@ if (!isset($_SESSION['user']['login'])) {
 }
 
 $userid = $_SESSION['user']['userid'];
-$request = view_order($userid);
+
+// Fetch orders for logged-in user
+$orders = view_order($userid); // make sure view_order returns an array
 ?>
 
 <!DOCTYPE html>
@@ -21,149 +23,151 @@ $request = view_order($userid);
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Track Orders</title>
 
-<style>
-/* ===== FONT & RESET ===== */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins', sans-serif;
-}
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-/* ===== BODY ===== */
+<style>
 body {
-    background-color: #111;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0e1117;
     color: #fff;
     min-height: 100vh;
+    padding: 80px 2rem 2rem;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2rem;
+    justify-content: center;
 }
 
-/* ===== HEADING ===== */
-h2 {
+.container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+h2.page-title {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 2rem;
+    color: #ffb400;
 }
 
-/* ===== TABLE ===== */
+.order-card {
+    background-color: #1a1c24;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transition: all 0.25s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+}
+
+.order-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffb400;
+    margin-bottom: 0.5rem;
+}
+
 table {
     width: 100%;
-    max-width: 1200px;
     border-collapse: collapse;
-    background-color: #222;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(255,255,255,0.1);
-    text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
-/* TABLE HEAD */
+th, td {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+}
+
 th {
-    background-color: #000;
-    color: #fff;
-    padding: 15px;
+    color: #ffb400;
+    text-transform: uppercase;
     font-weight: 600;
 }
 
-/* TABLE CELLS */
-td {
-    padding: 12px;
-    color: #fff;
-}
-
-/* TABLE ROWS */
-tr {
-    transition: all .2s ease-in;
-    cursor: pointer;
-}
-
-/* HOVER EFFECT */
-tr:hover {
-    background-color: #333;
-    transform: scale(1.02);
-}
-
-/* IMAGE IN TABLE */
 td img {
-    max-width: 100px;
-    border-radius: 5px;
+    max-width: 80px;
+    border-radius: 8px;
 }
 
-/* RESPONSIVE */
-@media screen and (max-width: 768px) {
-    table, th, td {
-        display: block;
-        width: 100%;
-    }
-    th {
-        text-align: left;
-    }
-    td {
-        text-align: left;
-        margin-bottom: 10px;
-    }
+.status {
+    font-weight: 600;
+    color: #ffa500;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffa500;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    td img { max-width: 60px; }
+    td, th { padding: 6px 8px; font-size: 0.85rem; }
 }
 </style>
-
 </head>
 <body>
 
-<h2 style="text-align:center;">My Courier Orders</h2>
+<div class="container">
+    <h2 class="page-title">My Courier Orders</h2>
 
-<table>
-    <tr>
-        <th>S.N</th>
-        <th>Order Name</th>
-        <th>Receiver Name</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Weight</th>
-        <th>Product Image</th>
-        <th>Status</th>
-    </tr>
+    <?php if (!empty($orders)): ?>
+        <?php foreach($orders as $i => $row): ?>
+        <div class="order-card">
+            <h3>Order #<?= $i + 1 ?>: <?= htmlspecialchars($row['ordername'] ?? 'N/A') ?></h3>
+            <p><strong>Date:</strong> <?= htmlspecialchars($row['date'] ?? 'N/A') ?></p>
 
-    <?php if (!empty($request)): ?>
-        <?php foreach($request as $i => $row): ?>
-            <tr>
-                <td><?= $i + 1 ?></td>
-                <td><?= htmlspecialchars($row['ordername']) ?></td>
-                <td><?= htmlspecialchars($row['rname']) ?></td>
-                <td><?= htmlspecialchars($row['rphone']) ?></td>
-                <td><?= htmlspecialchars($row['raddress']) ?></td>
-                <td><?= htmlspecialchars($row['weight']) ?> kg</td>
-                <td>
-                    <?php if(!empty($row['image'])): ?>
-                        <img src="<?= htmlspecialchars($row['image']) ?>" alt="Product Image">
-                    <?php else: ?>
-                        N/A
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <?php
-                    switch($row['status']) {
-                        case 0: echo "Pending"; break;
-                        case 1: echo "Admin has Approved"; break;
-                        case 2: echo "Courier Rejected"; break;
-                        case 3: echo "On the way"; break;
-                        case 4: echo "Delivered"; break;
-                        default: echo "Error"; break;
-                    }
-                    ?>
-                </td>
-            </tr>
+
+            <!-- Receiver Info -->
+            <h3>Receiver Info</h3>
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>
+                        <?php if(!empty($row['image'])): ?>
+                            <img src="<?= htmlspecialchars($row['image']) ?>" alt="Product Image">
+                        <?php else: ?>
+                            N/A
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($row['rname'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($row['remail'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($row['rphone'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($row['raddress'] ?? 'N/A') ?></td>
+                    <td class="status">
+                        <?php
+                        switch($row['status'] ?? -1) {
+                            case 0: echo "Pending"; break;
+                            case 1: echo "Admin Approved"; break;
+                            case 2: echo "Courier Rejected"; break;
+                            case 3: echo "On the way"; break;
+                            case 4: echo "Delivered"; break;
+                            default: echo "Error"; break;
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr>
-            <td colspan="8">No orders found.</td>
-        </tr>
+        <div class="empty-message">
+            No orders found for your account.
+        </div>
     <?php endif; ?>
-</table>
+</div>
 
 </body>
 </html>

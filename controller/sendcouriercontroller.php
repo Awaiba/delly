@@ -14,7 +14,6 @@ $base_url = "index.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
-        // Sanitize input
         $ordername = trim($_POST['ordername']);
         $rname     = trim($_POST['rname']);
         $remail    = trim($_POST['remail']);
@@ -22,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $raddress  = trim($_POST['raddress']);
         $weight    = (int) $_POST['weight'];
         $date      = trim($_POST['date']);
-        $user      = $_SESSION['user']['id'];
+        $user      = $_SESSION['user']['userid'];
 
         // Validate required fields
         if (!$ordername || !$rname || !$remail || !$rphone || !$raddress || !$weight || !$date) {
