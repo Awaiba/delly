@@ -1,0 +1,72 @@
+/* ===== FONT ===== */
+* {
+    font-family: Arial, Helvetica, sans-serif; /* clean sans-serif */
+}
+
+/* ===== BODY ===== */
+body {
+    background-color: #111; /* dark background */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* ===== HEADING ===== */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
+}
+
+/* ===== TABLE ===== */
+.content-table {
+    border-collapse: collapse;
+    width: 80%;          /* responsive width */
+    max-width: 700px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+}
+
+/* TABLE HEAD */
+.content-table thead tr {
+    background-color: #000; /* black header */
+    color: #fff;            /* white text */
+    text-align: center;
+    font-weight: bold;
+}
+
+/* TABLE CELLS */
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+/* TABLE BODY ROWS */
+.content-table tbody tr {
+    border-bottom: 1px solid #444;
+    background-color: #222; /* dark row background */
+    color: #fff;
+}
+
+/* ALTERNATE ROWS */
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #333;
+}
+
+/* HOVER EFFECT */
+.content-table tbody tr:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+/* ACTIVE ROW */
+.content-table tbody tr.active-row {
+    background-color: #000;
+    font-weight: bold;
+}

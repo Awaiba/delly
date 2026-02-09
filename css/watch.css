@@ -1,0 +1,32 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    background: rgb(255, 255, 255);
+}
+
+.container {
+    font-family: "Arial", Helvetica, sans-serif;
+    padding: 30px;
+    color: #d6491e;
+    font-weight: bold;
+    position: absolute;
+    top: 7%;
+    right: 38%;
+    transform: translate(50%, -50%);
+    font-size: 50px;
+    white-space: nowrap;
+}
+
+marquee {
+    position: fixed;
+    top: 10%;
+    left: 22.5%;
+    font-size: 50px;
+}
+
+.container video {
+    position: absolute;
+    top: 60%;
+    left: 22.5%;
+    object-fit: cover;
+}

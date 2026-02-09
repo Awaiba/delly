@@ -1,0 +1,124 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== ROOT ===== */
+:root {
+    --black: #000;
+    --white: #fff;
+    --glass: rgba(0,0,0,0.6);
+}
+
+/* ===== BODY ===== */
+body {
+    min-height: 100vh;
+    font-family: system-ui, sans-serif;
+    color: var(--white);
+
+    background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('../img/11.jpg') center / cover no-repeat;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.icon {
+    height: 50px;
+}
+
+/* ===== HERO ===== */
+.hero {
+    padding-top: 120px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    text-align: center;
+}
+
+.content h2 {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: 2px solid var(--white);
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--white);
+    color: var(--black);
+}
+
+/* ===== LOGIN ===== */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.box {
+    width: 400px;
+    padding: 2.5rem;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    text-align: center;
+}
+
+.avatar {
+    width: 120px;
+    margin-bottom: 1rem;
+}
+
+.box h1 {
+    margin-bottom: 1.5rem;
+}
+
+/* ===== SEL*
