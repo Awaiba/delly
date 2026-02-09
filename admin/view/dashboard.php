@@ -80,7 +80,7 @@ body {
 }
 
 /* LOGO */
-.navbar-koseli h1 {
+.navbar-delly h1 {
     font-size: 22px;
     color: #fff;
     font-weight: 600;

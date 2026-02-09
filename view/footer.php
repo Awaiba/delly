@@ -1,7 +1,7 @@
 
  <div class="footer">
  <p>Copyright@waibanishsanisha<br>
-  <a href="koseli@gmail.com">Delly@gmail.com</a></p>
+  <a href="delly@gmail.com">Delly@gmail.com</a></p>
 </div>
 
  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

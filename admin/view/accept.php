@@ -53,7 +53,7 @@ body {
     box-shadow: 0 4px 18px rgba(2,6,23,0.35);
 }
 
-.navbar-koseli h1 {
+.navbar-delly h1 {
     font-size: 22px;
     color: #fff;
     font-weight: 600;
@@ -151,7 +151,7 @@ body {
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <div class="navbar-koseli">
+    <div class="navbar-delly">
         <h1>Delly</h1>
     </div>
     <div class="navbar-menu">

@@ -5,7 +5,7 @@ function db_connect() {
     $db['host'] = "localhost";
     $db['username'] = "root";
     $db['password'] = "";
-    $db['db_name'] = "koseli";
+    $db['db_name'] = "delly";
     $conn = new mysqli($db['host'], $db['username'], $db['password'], $db['db_name']);
 
 // Check connection

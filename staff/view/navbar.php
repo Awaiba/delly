@@ -44,13 +44,13 @@ body {
 }
 
 /* LOGO */
-.navbar-koseli {
+.navbar-delly {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.navbar-koseli h1 {
+.navbar-delly h1 {
     font-size: 28px;
     color: var(--bg);
     margin: 0;
@@ -151,7 +151,7 @@ body {
                         }
                         ?>
     <div class="navbar">
-        <div class="navbar-koseli">
+        <div class="navbar-delly">
             <div style="display:flex;align-items:center;gap:.5rem;justify-content:space-between;width:100%">
                 <h1 style="margin:0">Delly
                     <ion-icon name="bicycle"></ion-icon>

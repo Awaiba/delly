@@ -1,16 +1,13 @@
 <?php
 include 'model/dbmodel.php';
 
-// Ensure user is logged in
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
     exit;
 }
 
-// Base URL for form redirects
 $base_url = "index.php";
 
-// --- HANDLE POST FORM SUBMISSION ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
@@ -23,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date      = trim($_POST['date']);
         $user      = $_SESSION['user']['userid'];
 
-        // Validate required fields
         if (!$ordername || !$rname || !$remail || !$rphone || !$raddress || !$weight || !$date) {
             $_SESSION['message'] = "All fields are required!";
             $_SESSION['status']  = "error";
@@ -31,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Validate file upload
         if (empty($_FILES['simg']['name'])) {
             $_SESSION['message'] = "Please upload an image.";
             $_SESSION['status']  = "error";

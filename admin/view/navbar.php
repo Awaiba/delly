@@ -66,7 +66,7 @@ body {
 }
 
 /* LOGO */
-.navbar-koseli h1 {
+.navbar-delly h1 {
     font-size: 22px;
     color: #fff;
     font-weight: 600;
@@ -177,7 +177,7 @@ if (empty($_SESSION['admin']['login'])) {
 ?>
 
 <div class="navbar">
-    <div class="navbar-koseli">
+    <div class="navbar-delly">
         <h1><ion-icon name="bicycle"></ion-icon> Delly</h1>
         <button id="mobile-nav-toggle" aria-label="Toggle menu">☰</button>
     </div>

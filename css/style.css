@@ -36,13 +36,13 @@ body {
 }
 
 /* LOGO */
-.navbar-koseli {
+.navbar-delly {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.navbar-koseli h1 {
+.navbar-delly h1 {
     font-size: 28px;
     color: var(--bg);
     margin: 0;

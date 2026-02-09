@@ -54,13 +54,13 @@ $base_url = $_SESSION['base_url'] ?? '/';
             z-index: 100;
         }
 
-        .navbar-koseli {
+        .navbar-delly {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .navbar-koseli h1 {
+        .navbar-delly h1 {
             font-size: 28px;
             color: var(--bg);
             margin: 0;
@@ -145,7 +145,7 @@ $base_url = $_SESSION['base_url'] ?? '/';
 
 <body>
     <div class="navbar">
-        <div class="navbar-koseli">
+        <div class="navbar-delly">
             <h1><ion-icon name="bicycle"></ion-icon>Delly</h1>
             <button id="mobile-nav-toggle" aria-label="Toggle menu"
                 style="background:transparent;border:none;font-size:1.25rem;cursor:pointer;display:none;color:#fff">☰</button>
@@ -163,7 +163,7 @@ $base_url = $_SESSION['base_url'] ?? '/';
 
     <div class="footer">
         <p>Copyright@waibanish<br>
-            <a href="koseli@gmail.com">Delly@gmail.com</a>
+            <a href="delly@gmail.com">Delly@gmail.com</a>
         </p>
     </div>
 

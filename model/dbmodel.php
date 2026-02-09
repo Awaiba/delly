@@ -2,7 +2,7 @@
 // DATABASE CONNECTION
 if (!function_exists('db_connect')) {
     function db_connect() {
-        $conn = new mysqli("localhost", "root", "", "koseli");
+        $conn = new mysqli("localhost", "root", "", "delly");
         if ($conn->connect_error) die("DB Connection failed: " . $conn->connect_error);
         return $conn;
     }
@@ -28,23 +28,39 @@ if (!function_exists('send_courier')) {
 }
 
 function view_order($userid) {
-    $conn = db_connect(); // make sure your connection function is used
+    $conn = db_connect(); // Make sure this returns your mysqli connection
+
+    // Ensure userid is an integer
     $userid = intval($userid);
 
-    $sql = "SELECT * FROM courier WHERE uid = ? ORDER BY oid DESC";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare("SELECT * FROM courier WHERE uid = ? ORDER BY oid DESC");
     $stmt->bind_param("i", $userid);
     $stmt->execute();
     $result = $stmt->get_result();
 
     $orders = [];
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $orders[] = $row;
-        }
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = $row;
     }
 
     return $orders;
+}
+function get_order_by_id($id) {     
+    $conn = db_connect(); // Make sure this returns your mysqli connection
+
+    // Ensure id is an integer
+    $id = intval($id);
+
+    $stmt = $conn->prepare("SELECT * FROM courier WHERE oid = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
+    } else {
+        return false;
+    }
 }
 
 
