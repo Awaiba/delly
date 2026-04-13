@@ -50,6 +50,24 @@ while ($row = $monthlyOrders->fetch_assoc()) {
     $monthLabels[] = $row['month'];
     $monthData[]   = (int)$row['total'];
 }
+// ===============================
+// TIME SERIES ANALYSIS (3-MA)
+// ===============================
+
+$movingAvg = [];
+$window = 3;
+
+for ($i = 0; $i < count($monthData); $i++) {
+    $sum = 0;
+    $count = 0;
+
+    for ($j = $i; $j >= 0 && $j > $i - $window; $j--) {
+        $sum += $monthData[$j];
+        $count++;
+    }
+
+    $movingAvg[] = $count > 0 ? round($sum / $count, 2) : 0;
+}
 
 // ============================================================
 //  CHART 2 — Order status breakdown
@@ -108,8 +126,9 @@ $conn->close();
 // ============================================================
 //  Encode PHP arrays → JSON for Chart.js
 // ============================================================
-$j_monthLabels  = json_encode($monthLabels ?: []);
-$j_monthData    = json_encode($monthData ?: []);
+$j_monthLabels  = json_encode($monthLabels);
+$j_monthData    = json_encode($monthData);
+$j_movingAvg = json_encode($movingAvg);
 $j_statusData   = json_encode(array_values($statusData));
 $j_uMale        = $uGender['Male'];
 $j_uFemale      = $uGender['Female'];
@@ -126,7 +145,7 @@ $statusColor = [0=>'#378ADD', 1=>'#EF9F27', 2=>'#1D9E75', 3=>'#E24B4A'];
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delly — Admin Dashboard</title>
+<title>Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;list-style:none;text-decoration:none;}
@@ -185,15 +204,14 @@ tbody tr:last-child td{border-bottom:none;}
 
 <div class="navbar">
     <div class="navbar-delly">
-        <h1><ion-icon name="bicycle"></ion-icon> Delly</h1>
-        <button id="mobile-nav-toggle" aria-label="Toggle menu">☰</button>
+        <h1 a href="<?= $base_url ?>?r=home"><span><ion-icon name="home-sharp"></ion-icon></span>Delly</a></h1>
     </div>
 
     <div class="navbar-menu">
         <ul>
             <li><a href="<?= $base_url ?>?r=home"><span><ion-icon name="home-sharp"></ion-icon></span>Home</a></li>
             <li>
-            <a href="<?= $base_url ?>?r=admindashboard">s                <span></span>Dashboard
+            <a href="<?= $base_url ?>?r=admindashboard"><span></span>Dashboard
              </a>
             </li>
             <li><a href="<?= $base_url ?>?r=request"><span><ion-icon name="git-pull-request-sharp"></ion-icon></span>User Request</a></li>
@@ -248,6 +266,15 @@ tbody tr:last-child td{border-bottom:none;}
   <div class="charts-grid">
 
     <!-- Chart 1: Monthly Orders -->
+     <!-- TIME SERIES ANALYSIS -->
+<div class="chart-card">
+  <div class="chart-title">Time Series Analysis (Moving Average)</div>
+  <div class="chart-sub">3-month smoothed courier demand trend</div>
+
+  <div style="position:relative;height:230px;">
+    <canvas id="trendLine"></canvas>
+  </div>
+</div>
     <div class="chart-card">
       <div class="chart-title">Monthly courier orders</div>
       <div class="chart-sub">Last 6 months order volume</div>
@@ -375,13 +402,41 @@ setInterval(tick,1000);tick();
 <script>
 const monthLabels  = <?= $j_monthLabels ?>;
 const monthData    = <?= $j_monthData ?>;
+const movingAvg = <?= $j_movingAvg ?>;
 const statusData   = <?= $j_statusData ?>;
 const weightLabels = <?= $j_weightLabels ?>;
 const weightData   = <?= $j_weightData ?>;
 const uMale=<?= $j_uMale ?>, uFemale=<?= $j_uFemale ?>;
 const sMale=<?= $j_sMale ?>, sFemale=<?= $j_sFemale ?>;
 const totalUsers=<?= $totalUsers ?>, totalStaff=<?= $totalStaff ?>;
-
+new Chart(document.getElementById('trendLine'), {
+    type: 'line',
+    data: {
+        labels: monthLabels,
+        datasets: [
+            {
+                label: 'Actual Orders',
+                data: monthData,
+                borderColor: '#185FA5',
+                tension: 0.3
+            },
+            {
+                label: '3-Month Moving Avg',
+                data: movingAvg,
+                borderColor: '#E24B4A',
+                borderDash: [6, 4],
+                tension: 0.3
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: true }
+        }
+    }
+});
 // Chart 1 — Monthly orders bar
 new Chart(document.getElementById('ordersBar'),{
   type:'bar',
