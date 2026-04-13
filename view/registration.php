@@ -169,5 +169,105 @@ swal({
 unset($_SESSION['message']);
 }
 ?>
+<script>
+
+function name_validate() {
+    const name = document.forms["form"]["name"].value.trim();
+    const pattern = /^[A-Za-z\s]{3,}$/;
+
+    if (!pattern.test(name)) {
+        document.getElementById("nerror").innerHTML = "Enter valid name (min 3 letters)";
+        return false;
+    }
+    document.getElementById("nerror").innerHTML = "";
+    return true;
+}
+
+function username_validate() {
+    const username = document.forms["form"]["username"].value.trim();
+    const pattern = /^[A-Za-z0-9_]{4,}$/;
+
+    if (!pattern.test(username)) {
+        document.getElementById("uerror").innerHTML = "Min 4 characters (letters/numbers/_)";
+        return false;
+    }
+    document.getElementById("uerror").innerHTML = "";
+    return true;
+}
+
+function check() {
+    const password = document.forms["form"]["password"].value;
+    if (password.length < 6) {
+        document.getElementById("perror").innerHTML = "Password must be at least 6 characters";
+        return false;
+    }
+    document.getElementById("perror").innerHTML = "";
+    return true;
+}
+
+function password_validate() {
+    const password = document.forms["form"]["password"].value;
+    const confirm = document.forms["form"]["confirmpassword"].value;
+
+    if (password !== confirm) {
+        document.getElementById("cerror").innerHTML = "Passwords do not match";
+        return false;
+    }
+    document.getElementById("cerror").innerHTML = "";
+    return true;
+}
+
+function email_validate() {
+    const email = document.forms["form"]["email"].value.trim();
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (!pattern.test(email)) {
+        document.getElementById("eerror").innerHTML = "Enter valid email";
+        return false;
+    }
+    document.getElementById("eerror").innerHTML = "";
+    return true;
+}
+
+function phone_validate() {
+    const phone = document.forms["form"]["phone"].value.trim();
+    const pattern = /^[0-9]{10}$/;
+
+    if (!pattern.test(phone)) {
+        document.getElementById("pherror").innerHTML = "Enter 10 digit number";
+        return false;
+    }
+    document.getElementById("pherror").innerHTML = "";
+    return true;
+}
+
+function address_validate() {
+    const address = document.forms["form"]["address"].value.trim();
+
+    if (address.length < 5) {
+        document.getElementById("adderror").innerHTML = "Enter valid address";
+        return false;
+    }
+    document.getElementById("adderror").innerHTML = "";
+    return true;
+}
+
+function validation() {
+    if (
+        !name_validate() ||
+        !username_validate() ||
+        !check() ||
+        !password_validate() ||
+        !email_validate() ||
+        !phone_validate() ||
+        !address_validate()
+    ) {
+        return false;
+    }
+    return true;
+}
+
+</script>
+
 </body>
 </html>

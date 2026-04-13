@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 $base_url = 'http://localhost/college-project/admin/';
@@ -8,7 +7,6 @@ include 'helper/specialcharacter.php';
 include 'helper/ErrorHelper.php';
 include 'helper/RouteHelper.php';
 
-
 if (isset($_GET['r'])) {
     $controller = $_GET['r'];
     switch ($controller) {
@@ -16,71 +14,93 @@ if (isset($_GET['r'])) {
             $_SESSION['active_url'] = 'home';
             include 'controller/homeController.php';
             break;
+
+         case 'admindashboard':
+    $_SESSION['active_url'] = 'admindashboard';
+    include 'view/admindashboard.php';
+    break;
+
         case 'addperson':
             $_SESSION['active_url'] = 'addperson';
             include 'controller/addcontroller.php';
             break;
-         case 'staff':
+
+        case 'staff':
             $_SESSION['active_url'] = 'staff';
             include 'controller/staffcontroller.php';
             break;
-         case 'user':
+
+        case 'user':
             $_SESSION['active_url'] = 'user';
             include 'controller/usercontroller.php';
             break;
-         case 'request':
+
+        case 'request':
             $_SESSION['active_url'] = 'request';
             include 'controller/requestcontroller.php';
             break;
-         case 'notification':
+
+        case 'notification':
             $_SESSION['active_url'] = 'notification';
             include 'controller/notificationcontroller.php';
-            break;                
-          case 'logout':
+            break;
+
+        case 'logout':
             $_SESSION['active_url'] = 'logout';
             include 'controller/logoutcontroller.php';
             break;
-         case 'editstaff':
+
+        case 'editstaff':
             $_SESSION['active_url'] = 'editstaff';
             include 'controller/editstaffcontroller.php';
             break;
+
         case 'edituser':
             $_SESSION['active_url'] = 'edituser';
             include 'controller/editusercontroller.php';
             break;
-         case 'deleteuser':
+
+        case 'deleteuser':
             $_SESSION['active_url'] = 'deleteuser';
             include 'controller/deleteusercontroller.php';
             break;
+
         case 'deletestaff':
             $_SESSION['active_url'] = 'deletestaff';
             include 'controller/deletestaffcontroller.php';
             break;
+
         case 'accept':
             $_SESSION['active_url'] = 'accept';
             include 'controller/acceptcontroller.php';
             break;
+
         case 'reject':
             $_SESSION['active_url'] = 'reject';
             include 'controller/rejectcontroller.php';
             break;
+
         case 'sender':
             $_SESSION['active_url'] = 'sender';
             include 'controller/sendercontroller.php';
             break;
+
         case 'completeorder':
             $_SESSION['active_url'] = 'completeorder';
             include 'controller/completecontroller.php';
             break;
+
         case 'approvestaff':
             $_SESSION['active_url'] = 'approvestaff';
             include 'controller/approvestaffcontroller.php';
             break;
+
         case 'price':
             $_SESSION['active_url'] = 'price';
             include 'controller/pricecontroller.php';
             break;
-        default :
+
+        default:
             throwError(404, 'Requested page does not exists.');
             break;
     }
