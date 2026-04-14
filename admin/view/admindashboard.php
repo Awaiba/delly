@@ -4,7 +4,7 @@ if (!isset($_SESSION['base_url'])) {
     $_SESSION['base_url'] = "http://localhost/college-project/admin/view";
 }
 
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (empty($_SESSION['admin']['login'])) {
     header("Location: " . $_SESSION['base_url'] . "?r=login");
     exit;
 }

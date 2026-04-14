@@ -186,7 +186,7 @@ if (empty($_SESSION['admin']['login'])) {
         <ul>
             <li><a href="<?= $base_url ?>?r=home"><span><ion-icon name="home-sharp"></ion-icon></span>Home</a></li>
             <li>
-            <a href="<?= $base_url ?>?r=admindashboard">s                <span></span>Dashboard
+            <a href="<?= $base_url ?>?r=admindashboard"><span></span>Dashboard
              </a>
             </li>
             <li><a href="<?= $base_url ?>?r=request"><span><ion-icon name="git-pull-request-sharp"></ion-icon></span>User Request</a></li>
